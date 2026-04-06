@@ -51,8 +51,8 @@ export function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'popescusebastian1803@gmail.com',
-      href: 'mailto:popescusebastian1803@gmail.com',
+      value: 'contact@sebastian-popescu.com',
+      href: 'mailto:contact@sebastian-popescu.com',
     },
     {
       icon: MapPin,
@@ -64,7 +64,7 @@ export function Contact() {
       icon: Github,
       label: 'GitHub',
       value: 'GitHub Profile',
-      href: 'https://github.com/popescusebastian',
+      href: 'https://github.com/sebiisgarb',
     },
   ];
 

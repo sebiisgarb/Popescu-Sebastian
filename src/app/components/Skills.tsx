@@ -21,7 +21,7 @@ export function Skills() {
     },
     {
       title: 'DevOps & Cloud',
-      skills: ['Docker', 'AWS', 'Azure', 'Git', 'Google Colab'],
+      skills: ['Linux', 'Docker', 'AWS', 'Azure', 'Git', 'Google Colab'],
     },
     {
       title: 'AI & ML',
@@ -29,7 +29,7 @@ export function Skills() {
     },
     {
       title: 'Other Tools',
-      skills: ['Godot', 'AutoCAD', 'Postman', 'Kotlin'],
+      skills: ['Godot', 'AutoCAD', 'Postman'],
     },
   ];
 
