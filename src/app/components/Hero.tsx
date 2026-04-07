@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Github, Mail, MapPin } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import poza from './static/pozasite.jpeg';
 
 export function Hero() {
   return (
@@ -14,9 +15,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm mb-6">
-              Available for opportunities
-            </div>
             
             <h1 className="text-5xl sm:text-6xl lg:text-7xl mb-6">
               Hi, I'm <span className="text-blue-600">Sebastian</span>
@@ -25,13 +23,12 @@ export function Hero() {
             <h2 className="text-2xl sm:text-3xl text-gray-700 mb-6">
               Software Engineering Student
             </h2>
-            
-            <p className="text-lg text-gray-600 mb-8 max-w-xl">
-              Full-stack developer passionate about building intelligent applications 
+            {/* 
+            <p className="text-lg text-gray-600 mb-8 max-w-xl"> Full-stack developer passionate about building intelligent applications 
               with AI/ML integration. Currently pursuing my Master's degree in Software 
               Engineering at University of Bucharest.
             </p>
-            
+           */} 
             <div className="flex flex-wrap gap-4 mb-8">
               <Link
                 to="/projects"
@@ -81,29 +78,13 @@ export function Hero() {
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src="../../imports/pozasite.jpg"
+                src={poza}
                 alt="Coding workspace"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent"></div>
             </div>
             
-            {/* Floating elements */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-4 -right-4 bg-white p-4 rounded-xl shadow-lg"
-            >
-              <div className="text-3xl">🚀</div>
-            </motion.div>
-            
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-              className="absolute -bottom-4 -left-4 bg-white p-4 rounded-xl shadow-lg"
-            >
-              <div className="text-3xl">💻</div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
