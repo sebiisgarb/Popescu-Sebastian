@@ -54,14 +54,14 @@ export function Hero() {
                 <span>Constanța / Bucharest</span>
               </div>
               <a
-                href="mailto:popescusebastian1803@gmail.com"
+                href="mailto:contact@sebastian-popescu.com"
                 className="flex items-center gap-2 hover:text-blue-600 transition-colors"
               >
                 <Mail className="w-5 h-5" />
                 <span>Email</span>
               </a>
               <a
-                href="https://github.com/popescusebastian"
+                href="https://github.com/sebiisgarb"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:text-blue-600 transition-colors"
@@ -81,7 +81,7 @@ export function Hero() {
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1719400471588-575b23e27bd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BlciUyMGNvZGluZyUyMHdvcmtzcGFjZXxlbnwxfHx8fDE3NzUzODcyMzd8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="../../imports/pozasite.jpg"
                 alt="Coding workspace"
                 className="w-full h-full object-cover"
               />
