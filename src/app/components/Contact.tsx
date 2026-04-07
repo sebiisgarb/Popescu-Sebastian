@@ -126,7 +126,6 @@ export function Contact() {
         >
           <div className="inline-flex items-center gap-4 bg-white rounded-full px-8 py-4 shadow-lg">
             <span className="text-gray-700">Let's connect and build something amazing together!</span>
-            <span className="text-2xl">🚀</span>
           </div>
         </motion.div>
 

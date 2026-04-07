@@ -160,7 +160,7 @@ export function Projects() {
               Check out my GitHub profile for more projects, contributions, and open-source work.
             </p>
             <a
-              href="https://github.com/popescusebastian"
+              href="https://github.com/sebiisgarb"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors"

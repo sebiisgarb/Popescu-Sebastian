@@ -1,15 +1,28 @@
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 export function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const links = [
     { to: '/', label: 'Home' },
     { to: '/projects', label: 'Projects' },
   ];
+
+  const handleContact = () => {
+    setIsOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
@@ -18,7 +31,6 @@ export function Navigation() {
           <Link to="/" className="text-xl font-bold text-gray-900">
             SP
           </Link>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             {links.map((link) => (
@@ -34,14 +46,13 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="#contact"
+            <button
+              onClick={handleContact}
               className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
             >
               Contact
-            </a>
+            </button>
           </div>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -50,7 +61,6 @@ export function Navigation() {
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-2">
@@ -68,13 +78,12 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="#contact"
-              onClick={() => setIsOpen(false)}
-              className="block px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-50"
+            <button
+              onClick={handleContact}
+              className="block w-full text-left px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-50"
             >
               Contact
-            </a>
+            </button>
           </div>
         )}
       </div>
