@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router";
 import { Home } from "./components/Home";
 import { Projects } from "./components/Projects";
+import { FinAiProject } from "./components/FinAiProject";
+import { SkyPathProject } from "./components/SkyPathProject";
 import { ReviveProject } from "./components/ReviveProject";
-import { ConstructionProject } from "./components/ConstructionProject";
+import { VoiceLearnProject } from "./components/VoiceLearnProject";
 import { FitTrackProject } from "./components/FitTrackProject";
 
 export const router = createBrowserRouter([
@@ -15,12 +17,20 @@ export const router = createBrowserRouter([
     Component: Projects,
   },
   {
+    path: "/projects/finai",
+    Component: FinAiProject,
+  },
+  {
+    path: "/projects/skypath",
+    Component: SkyPathProject,
+  },
+  {
     path: "/projects/revive",
     Component: ReviveProject,
   },
   {
-    path: "/projects/construction-app",
-    Component: ConstructionProject,
+    path: "/projects/voicelearn",
+    Component: VoiceLearnProject,
   },
   {
     path: "/projects/fittrack",

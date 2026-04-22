@@ -15,6 +15,8 @@ export function ReviveProject() {
       status="Finished"
       statusColor="green"
       type="Personal Bachelor's Thesis Project"
+      youtubeId="Hf2hmq6J0Aw"
+      github="https://github.com/sebiisgarb/ReVive"
       features={[
         'Multiple AI colorization models for different content types',
         'Real-time preview of processed images and videos',

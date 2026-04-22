@@ -18,6 +18,7 @@ interface ProjectDetailProps {
   challenges?: string[];
   github?: string;
   demo?: string;
+  youtubeId?: string;
 }
 
 export function ProjectDetail({
@@ -33,6 +34,7 @@ export function ProjectDetail({
   challenges,
   github,
   demo,
+  youtubeId,
 }: ProjectDetailProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -103,19 +105,33 @@ export function ProjectDetail({
             </div>
           </motion.div>
 
-          {/* Project Image */}
+          {/* Project Media: YouTube embed or fallback image */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative rounded-2xl overflow-hidden shadow-2xl mb-16"
           >
-            <ImageWithFallback
-              src={image}
-              alt={title}
-              className="w-full h-[500px] object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            {youtubeId ? (
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${youtubeId}`}
+                  title={`${title} - Demo`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            ) : (
+              <>
+                <ImageWithFallback
+                  src={image}
+                  alt={title}
+                  className="w-full h-[500px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
