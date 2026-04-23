@@ -1,7 +1,7 @@
 import { Navigation } from './Navigation';
 import { Footer } from './Footer';
 import { motion } from 'motion/react';
-import { ArrowLeft, CheckCircle2, Clock, Github, ExternalLink, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, Github, ExternalLink, Tag } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -37,57 +37,59 @@ export function ProjectDetail({
   youtubeId,
 }: ProjectDetailProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-[#070b14]">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+
+      {/* Hero */}
+      <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-700/10 rounded-full blur-[100px] pointer-events-none" />
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+        />
+
+        <div className="max-w-7xl mx-auto relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
             <Link
               to="/projects"
-              className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8 transition-colors"
+              className="inline-flex items-center text-slate-400 hover:text-indigo-400 mb-10 transition-colors text-sm"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Projects
             </Link>
 
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-5">
               {statusColor === 'green' ? (
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
               ) : (
-                <Clock className="w-5 h-5 text-yellow-600" />
+                <Clock className="w-4 h-4 text-yellow-500" />
               )}
-              <span
-                className={`text-sm px-3 py-1 rounded-full ${
-                  statusColor === 'green'
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-yellow-100 text-yellow-700'
-                }`}
-              >
+              <span className={`text-xs px-3 py-1 rounded-full border ${
+                statusColor === 'green'
+                  ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-400'
+                  : 'bg-yellow-500/15 border-yellow-500/25 text-yellow-400'
+              }`}>
                 {status}
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-6">{title}</h1>
-            
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl">
-              {description}
-            </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white mb-6 leading-tight">{title}</h1>
 
-            <div className="flex flex-wrap gap-4 mb-12">
+            <p className="text-slate-400 text-lg mb-10 max-w-3xl leading-relaxed">{description}</p>
+
+            <div className="flex flex-wrap gap-4">
               {github && (
                 <a
                   href={github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-indigo-500/40 text-slate-300 hover:text-white text-sm font-medium transition-all duration-200"
                 >
-                  <Github className="w-5 h-5 mr-2" />
+                  <Github className="w-4 h-4 mr-2" />
                   View Code
                 </a>
               )}
@@ -96,21 +98,21 @@ export function ProjectDetail({
                   href={demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors duration-200"
                 >
-                  <ExternalLink className="w-5 h-5 mr-2" />
+                  <ExternalLink className="w-4 h-4 mr-2" />
                   Live Demo
                 </a>
               )}
             </div>
           </motion.div>
 
-          {/* Project Media: YouTube embed or fallback image */}
+          {/* Media */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative rounded-2xl overflow-hidden shadow-2xl mb-16"
+            className="relative rounded-2xl overflow-hidden border border-slate-800 mt-12 mb-16"
           >
             {youtubeId ? (
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -123,54 +125,52 @@ export function ProjectDetail({
                 />
               </div>
             ) : (
-              <>
-                <ImageWithFallback
-                  src={image}
-                  alt={title}
-                  className="w-full h-[500px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-              </>
+              <ImageWithFallback
+                src={image}
+                alt={title}
+                className="w-full h-[480px] object-cover"
+              />
             )}
           </motion.div>
         </div>
       </section>
 
-      {/* Project Details */}
+      {/* Details */}
       <section className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Main Content */}
+          <div className="grid lg:grid-cols-3 gap-10">
+
+            {/* Main content */}
             <div className="lg:col-span-2 space-y-12">
               {/* Overview */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <h2 className="text-3xl mb-6">Project Overview</h2>
-                <div className="space-y-4 text-gray-700 leading-relaxed">
-                  {fullDescription.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
+                <h2 className="text-2xl text-white mb-6">Project Overview</h2>
+                <div className="space-y-4 text-slate-400 leading-relaxed">
+                  {fullDescription.map((para, i) => (
+                    <p key={i}>{para}</p>
                   ))}
                 </div>
               </motion.div>
 
-              {/* Key Features */}
+              {/* Features */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <h2 className="text-3xl mb-6">Key Features</h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {features.map((feature, index) => (
+                <h2 className="text-2xl text-white mb-6">Key Features</h2>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {features.map((feature, i) => (
                     <div
-                      key={index}
-                      className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-200"
+                      key={i}
+                      className="flex items-start gap-3 p-4 bg-[#0e1527] rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors duration-200"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
+                      <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-slate-300 text-sm leading-relaxed">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -181,16 +181,17 @@ export function ProjectDetail({
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
                 >
-                  <h2 className="text-3xl mb-6">Challenges & Solutions</h2>
+                  <h2 className="text-2xl text-white mb-6">Challenges &amp; Solutions</h2>
                   <div className="space-y-4">
-                    {challenges.map((challenge, index) => (
+                    {challenges.map((challenge, i) => (
                       <div
-                        key={index}
-                        className="p-6 bg-blue-50 rounded-xl border border-blue-100"
+                        key={i}
+                        className="p-6 bg-[#0e1527] rounded-xl border border-indigo-500/20 relative overflow-hidden"
                       >
-                        <p className="text-gray-700">{challenge}</p>
+                        <div className="absolute left-0 top-0 bottom-0 w-px bg-indigo-500/40" />
+                        <p className="text-slate-400 text-sm leading-relaxed pl-4">{challenge}</p>
                       </div>
                     ))}
                   </div>
@@ -203,37 +204,64 @@ export function ProjectDetail({
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="sticky top-24 space-y-6"
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="sticky top-24 space-y-5"
               >
-                {/* Project Info */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-xl mb-4">Project Info</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <Tag className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-sm text-gray-500 mb-1">Type</div>
-                        <div className="text-gray-900">{type}</div>
-                      </div>
+                {/* Project info */}
+                <div className="bg-[#0e1527] border border-slate-800 rounded-2xl p-6">
+                  <h3 className="text-white font-medium mb-5">Project Info</h3>
+                  <div className="flex items-start gap-3">
+                    <Tag className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs text-slate-500 mb-1 uppercase tracking-wide">Type</div>
+                      <div className="text-slate-300 text-sm">{type}</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Technologies */}
-                <div className="bg-white rounded-2xl p-6 shadow-sm">
-                  <h3 className="text-xl mb-4">Technologies</h3>
+                <div className="bg-[#0e1527] border border-slate-800 rounded-2xl p-6">
+                  <h3 className="text-white font-medium mb-5">Technologies</h3>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm"
+                        className="px-3 py-1.5 rounded-lg text-xs bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:border-indigo-500/40 hover:text-indigo-300 transition-all duration-200"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
+
+                {/* Links */}
+                {(github || demo) && (
+                  <div className="bg-[#0e1527] border border-slate-800 rounded-2xl p-6 space-y-3">
+                    <h3 className="text-white font-medium mb-4">Links</h3>
+                    {github && (
+                      <a
+                        href={github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 text-sm transition-colors"
+                      >
+                        <Github className="w-4 h-4" />
+                        View on GitHub
+                      </a>
+                    )}
+                    {demo && (
+                      <a
+                        href={demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 text-sm transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             </div>
           </div>
