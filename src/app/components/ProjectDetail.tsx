@@ -3,13 +3,56 @@ import { Footer } from './Footer';
 import { motion } from 'motion/react';
 import { ArrowLeft, CheckCircle2, Clock, Github, ExternalLink, Tag } from 'lucide-react';
 import { Link } from 'react-router';
+import { useEffect } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+
+interface SectionGroup {
+  title: string;
+  status?: { label: string; color: 'green' | 'yellow' };
+  items: string[];
+}
+
+export interface ProjectSection {
+  heading: string;
+  paragraphs?: string[];
+  bullets?: string[];
+  groups?: SectionGroup[];
+  tags?: string[];
+}
+
+const statusPillClass = (color: 'green' | 'yellow') =>
+  color === 'green'
+    ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-400'
+    : 'bg-yellow-500/15 border-yellow-500/25 text-yellow-400';
+
+function useDocumentMeta(title: string, description: string) {
+  useEffect(() => {
+    const prevTitle = document.title;
+    let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    const created = !meta;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'description';
+      document.head.appendChild(meta);
+    }
+    const prevDescription = meta.content;
+
+    document.title = `${title} | Sebastian Popescu`;
+    meta.content = description;
+
+    return () => {
+      document.title = prevTitle;
+      if (created) meta.remove();
+      else meta.content = prevDescription;
+    };
+  }, [title, description]);
+}
 
 interface ProjectDetailProps {
   title: string;
   description: string;
   fullDescription: string[];
-  image: string;
+  image?: string;
   tags: string[];
   status: string;
   statusColor: 'green' | 'yellow';
@@ -19,6 +62,7 @@ interface ProjectDetailProps {
   github?: string;
   demo?: string;
   youtubeId?: string;
+  sections?: ProjectSection[];
 }
 
 export function ProjectDetail({
@@ -35,7 +79,10 @@ export function ProjectDetail({
   github,
   demo,
   youtubeId,
+  sections,
 }: ProjectDetailProps) {
+  useDocumentMeta(title, description);
+
   return (
     <div className="min-h-screen bg-[#070b14]">
       <Navigation />
@@ -68,11 +115,7 @@ export function ProjectDetail({
               ) : (
                 <Clock className="w-4 h-4 text-yellow-500" />
               )}
-              <span className={`text-xs px-3 py-1 rounded-full border ${
-                statusColor === 'green'
-                  ? 'bg-emerald-500/15 border-emerald-500/25 text-emerald-400'
-                  : 'bg-yellow-500/15 border-yellow-500/25 text-yellow-400'
-              }`}>
+              <span className={`text-xs px-3 py-1 rounded-full border ${statusPillClass(statusColor)}`}>
                 {status}
               </span>
             </div>
@@ -108,6 +151,7 @@ export function ProjectDetail({
           </motion.div>
 
           {/* Media */}
+          {(youtubeId || image) && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -132,6 +176,7 @@ export function ProjectDetail({
               />
             )}
           </motion.div>
+          )}
         </div>
       </section>
 
@@ -143,6 +188,7 @@ export function ProjectDetail({
             {/* Main content */}
             <div className="lg:col-span-2 space-y-12">
               {/* Overview */}
+              {fullDescription.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -155,8 +201,82 @@ export function ProjectDetail({
                   ))}
                 </div>
               </motion.div>
+              )}
+
+              {/* Custom sections (case-study layout) */}
+              {sections?.map((section, si) => (
+                <motion.div
+                  key={section.heading}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + si * 0.05 }}
+                >
+                  <h2 className="text-2xl text-white mb-6">{section.heading}</h2>
+                  {section.paragraphs && (
+                    <div className="space-y-4 text-slate-400 leading-relaxed mb-6 last:mb-0">
+                      {section.paragraphs.map((para, i) => (
+                        <p key={i}>{para}</p>
+                      ))}
+                    </div>
+                  )}
+                  {section.bullets && (
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {section.bullets.map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start gap-3 p-4 bg-[#0e1527] rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors duration-200"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-300 text-sm leading-relaxed">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {section.groups && (
+                    <div className="space-y-4">
+                      {section.groups.map((group) => (
+                        <div
+                          key={group.title}
+                          className="p-6 bg-[#0e1527] rounded-xl border border-indigo-500/20 relative overflow-hidden"
+                        >
+                          <div className="absolute left-0 top-0 bottom-0 w-px bg-indigo-500/40" />
+                          <div className="flex flex-wrap items-center gap-3 mb-4 pl-4">
+                            <h3 className="text-white font-medium">{group.title}</h3>
+                            {group.status && (
+                              <span className={`text-xs px-2.5 py-1 rounded-full border ${statusPillClass(group.status.color)}`}>
+                                {group.status.label}
+                              </span>
+                            )}
+                          </div>
+                          <ul className="space-y-2 pl-4">
+                            {group.items.map((item, i) => (
+                              <li key={i} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
+                                <CheckCircle2 className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {section.tags && (
+                    <div className="flex flex-wrap gap-2">
+                      {section.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1.5 rounded-lg text-xs bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:border-indigo-500/40 hover:text-indigo-300 transition-all duration-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
 
               {/* Features */}
+              {features.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -175,6 +295,7 @@ export function ProjectDetail({
                   ))}
                 </div>
               </motion.div>
+              )}
 
               {/* Challenges */}
               {challenges && challenges.length > 0 && (

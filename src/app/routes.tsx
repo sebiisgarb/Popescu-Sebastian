@@ -6,6 +6,7 @@ import { SkyPathProject } from "./components/SkyPathProject";
 import { ReviveProject } from "./components/ReviveProject";
 import { VoiceLearnProject } from "./components/VoiceLearnProject";
 import { FitTrackProject } from "./components/FitTrackProject";
+import { TomisHoneyProject } from "./components/TomisHoneyProject";
 
 function RootLayout() {
   return (
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "/projects/fittrack",
         Component: FitTrackProject,
+      },
+      {
+        path: "/projects/tomis-honey",
+        Component: TomisHoneyProject,
       },
     ],
   },

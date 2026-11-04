@@ -1,7 +1,30 @@
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useRef } from 'react';
-import { Trophy } from 'lucide-react';
+import { Trophy, Briefcase, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router';
+
+const work = [
+  {
+    role: 'Fractional CTO · External Technical Partner',
+    company: 'Tomis Honey',
+    companyNote: 'Romanian honey producer',
+    // TODO: replace TODO_START_DATE with the real start date; add company URL/logo
+    period: 'TODO_START_DATE – Present',
+    summary:
+      "Leading the company's digital transformation end to end, owning the entire software stack from architecture and infrastructure to day-to-day operation, and advising the owners on where technology can drive growth.",
+    highlights: [
+      'Building a custom Odoo 19 ERP covering the full production flow: raw honey intake, lab-result quarantine, blending, packaging recipes, finished goods and sales',
+      'End-to-end lot traceability from supplier barrel to customer jar, with expiry tracking and FEFO picking to meet food-safety requirements',
+      'Mobile PWA for the production floor and warehouse, so work is recorded where it happens',
+      'Online store synced live with warehouse stock; n8n automations linking orders to SmartBill invoicing and courier labels, removing manual data entry',
+      'Designed and deployed the on-premise server and private network: containerized deployment, secure remote access, role-based permissions, automated backups',
+      'AI agents integrated with the ERP: a phone voice agent that takes orders straight into the system, a store assistant that guides customers and places orders, and B2B outreach agents that find shops, pharmacies and cafés and send personalized emails',
+    ],
+    tags: ['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'Linux', 'n8n', 'PWA', 'AI Agents'],
+    caseStudy: '/projects/tomis-honey',
+  },
+];
 
 const hackathons = [
   {
@@ -56,6 +79,72 @@ export function Experience() {
           <h2 className="text-4xl sm:text-5xl text-white">
             Achievements &amp; <span className="text-indigo-400">Activities</span>
           </h2>
+        </motion.div>
+
+        {/* Work experience — full width */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/20 flex items-center justify-center">
+              <Briefcase className="w-4 h-4 text-indigo-400" />
+            </div>
+            <h3 className="text-xl text-white">Work Experience</h3>
+          </div>
+
+          <div className="space-y-5">
+            {work.map((w, index) => (
+              <motion.div
+                key={`${w.company}-${w.role}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative pl-8 border-l border-indigo-500/20 pb-2"
+              >
+                <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_2px_rgba(99,102,241,0.4)]" />
+                <div className="bg-[#0e1527] border border-slate-800 rounded-xl p-7 hover:border-indigo-500/25 transition-all duration-300">
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                    <div className="text-white text-lg font-medium">{w.role}</div>
+                    <span className="text-sm text-slate-500">{w.period}</span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className="text-sm px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/20 text-indigo-400">
+                      {w.company}
+                    </span>
+                    <span className="text-sm text-slate-600">{w.companyNote}</span>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed mb-5">{w.summary}</p>
+                  <ul className="space-y-2 mb-6">
+                    {w.highlights.map((item) => (
+                      <li key={item} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
+                        <span className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-400 flex-shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {w.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-lg text-xs bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:border-indigo-500/35 hover:text-indigo-300 transition-all duration-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <Link
+                    to={w.caseStudy}
+                    className="inline-flex items-center text-sm text-indigo-400 hover:text-indigo-300 transition-colors group/link"
+                  >
+                    View case study <ArrowRight className="ml-1.5 w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Hackathons — full width */}

@@ -3,11 +3,30 @@ import { Footer } from './Footer';
 import { motion } from 'motion/react';
 import { useInView } from 'motion/react';
 import { useRef } from 'react';
-import { ExternalLink, Github, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ExternalLink, Github, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
-const projects = [
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  image?: string;
+  tags: string[];
+  type: string;
+  status?: { label: string; color: 'green' | 'yellow' };
+};
+
+const projects: Project[] = [
+  {
+    id: 'tomis-honey',
+    title: 'Tomis Honey — Digital Transformation',
+    description: 'Fractional CTO for a Romanian honey producer. Custom Odoo 19 ERP with end-to-end lot traceability, a shop-floor PWA, e-commerce automations and AI agents.',
+    // TODO: add screenshot (image)
+    tags: ['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'n8n', 'AI Agents'],
+    type: 'Fractional CTO · External Technical Partner',
+    status: { label: 'Partly live · In development', color: 'yellow' },
+  },
   {
     id: 'finai',
     title: 'FinAI — AI-Powered Financial Companion',
@@ -50,8 +69,9 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project, index, isInView }: { project: typeof projects[0]; index: number; isInView: boolean }) {
+function ProjectCard({ project, index, isInView }: { project: Project; index: number; isInView: boolean }) {
   const isEven = index % 2 === 0;
+  const status = project.status ?? { label: 'Finished', color: 'green' as const };
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -61,6 +81,7 @@ function ProjectCard({ project, index, isInView }: { project: typeof projects[0]
     >
       <div className="grid lg:grid-cols-2">
         {/* Image */}
+        {project.image && (
         <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'} relative overflow-hidden`}>
           <div className="aspect-[4/3] w-full">
             <ImageWithFallback
@@ -71,14 +92,23 @@ function ProjectCard({ project, index, isInView }: { project: typeof projects[0]
             <div className="absolute inset-0 bg-gradient-to-t from-[#0e1527] via-[#0e1527]/40 to-transparent opacity-70" />
           </div>
         </div>
+        )}
 
         {/* Content */}
-        <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'} p-8 lg:p-10 flex flex-col justify-center`}>
+        <div className={`${project.image ? (isEven ? 'lg:order-2' : 'lg:order-1') : 'lg:col-span-2'} p-8 lg:p-10 flex flex-col justify-center`}>
           <div className="text-indigo-400 text-xs font-medium uppercase tracking-wide mb-4">{project.type}</div>
           <h2 className="text-xl sm:text-2xl text-white mb-4 leading-snug">{project.title}</h2>
           <div className="flex items-center gap-2 mb-5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-            <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">Finished</span>
+            {status.color === 'green' ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+            ) : (
+              <Clock className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+            )}
+            <span className={`text-xs px-2.5 py-1 rounded-full border ${
+              status.color === 'green'
+                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+                : 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400'
+            }`}>{status.label}</span>
           </div>
           <p className="text-slate-400 text-sm leading-relaxed mb-7">{project.description}</p>
           <div className="mb-7">
