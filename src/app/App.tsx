@@ -1,18 +1,12 @@
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { router } from './routes';
 
 export default function App() {
-  return (
-    <>
-      <img
-        src="https://imagine.sebastian-popescu.com/pixel"
-        alt=""
-        aria-hidden="true"
-        width={1}
-        height={1}
-        style={{ position: 'absolute', width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
-      />
-      <RouterProvider router={router} />
-    </>
-  );
+  useEffect(() => {
+    const img = new Image();
+    img.src = `https://imagine.sebastian-popescu.com/pixel?t=${Date.now()}`;
+  }, []);
+
+  return <RouterProvider router={router} />;
 }
