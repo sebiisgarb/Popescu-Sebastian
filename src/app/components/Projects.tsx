@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { ExternalLink, Github, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import tomisHoneyDashboard from './static/tomis-honey-dashboard.png';
 
 type Project = {
   id: string;
@@ -22,7 +23,7 @@ const projects: Project[] = [
     id: 'tomis-honey',
     title: "Tomi's Honey — Digital Transformation",
     description: 'Fractional CTO for a Romanian honey producer. Custom Odoo 19 ERP with end-to-end lot traceability, a shop-floor PWA, e-commerce automations and AI agents.',
-    // TODO: add screenshot (image)
+    image: tomisHoneyDashboard,
     tags: ['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'n8n', 'AI Agents'],
     type: 'Fractional CTO · External Technical Partner',
     status: { label: 'Partly live · In development', color: 'yellow' },

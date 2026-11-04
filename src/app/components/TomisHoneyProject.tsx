@@ -1,16 +1,18 @@
 import { ProjectDetail } from './ProjectDetail';
 import tomisHoneyLogo from './static/tomis-honey-logo.png';
+// Screenshot of the ERP daily dashboard; supplier and customer names are blurred.
+import dashboardScreenshot from './static/tomis-honey-dashboard.png';
 
 const live = { label: 'Live', color: 'green' as const };
 const inDevelopment = { label: 'In development', color: 'yellow' as const };
 
-// TODO: add dashboard screenshot (pass `image`).
 export function TomisHoneyProject() {
   return (
     <ProjectDetail
       title="Tomi's Honey — Digital Transformation"
       description="Fractional CTO for a Romanian honey producer: custom Odoo 19 ERP with end-to-end lot traceability, a shop-floor PWA, e-commerce automations and AI agents."
       fullDescription={[]}
+      image={dashboardScreenshot}
       tags={['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'Linux', 'n8n', 'PWA', 'AI Agents']}
       status="Partly live · In development"
       statusColor="yellow"
