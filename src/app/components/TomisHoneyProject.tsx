@@ -1,26 +1,28 @@
 import { ProjectDetail } from './ProjectDetail';
+import tomisHoneyLogo from './static/tomis-honey-logo.png';
 
 const live = { label: 'Live', color: 'green' as const };
 const inDevelopment = { label: 'In development', color: 'yellow' as const };
 
-// TODO: add screenshots (pass `image`, or a gallery once one exists).
-// TODO: add company URL (pass `demo` or a link in the Context section) and logo.
+// TODO: add dashboard screenshot (pass `image`).
 export function TomisHoneyProject() {
   return (
     <ProjectDetail
-      title="Tomis Honey — Digital Transformation"
+      title="Tomi's Honey — Digital Transformation"
       description="Fractional CTO for a Romanian honey producer: custom Odoo 19 ERP with end-to-end lot traceability, a shop-floor PWA, e-commerce automations and AI agents."
       fullDescription={[]}
       tags={['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'Linux', 'n8n', 'PWA', 'AI Agents']}
       status="Partly live · In development"
       statusColor="yellow"
-      type="Fractional CTO · External Technical Partner — Tomis Honey"
+      type="Fractional CTO · External Technical Partner — Tomi's Honey"
+      website="https://tomishoney.ro"
+      logo={tomisHoneyLogo}
       features={[]}
       sections={[
         {
           heading: 'Context',
           paragraphs: [
-            'Tomis Honey is a traditional Romanian honey producer moving from manual processes to an integrated system.',
+            "Tomi's Honey is a traditional Romanian honey producer moving from manual processes to an integrated system.",
           ],
         },
         {
@@ -94,9 +96,7 @@ export function TomisHoneyProject() {
         {
           heading: 'Impact',
           bullets: [
-            'TODO: impact metric',
-            'TODO: impact metric',
-            'TODO: impact metric',
+            'Cut time lost to paperwork and to manual entry of orders, stock and production by 80%',
           ],
         },
       ]}

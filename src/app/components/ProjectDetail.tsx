@@ -1,7 +1,7 @@
 import { Navigation } from './Navigation';
 import { Footer } from './Footer';
 import { motion } from 'motion/react';
-import { ArrowLeft, CheckCircle2, Clock, Github, ExternalLink, Tag } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Clock, Github, ExternalLink, Globe, Tag } from 'lucide-react';
 import { Link } from 'react-router';
 import { useEffect } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -63,6 +63,8 @@ interface ProjectDetailProps {
   demo?: string;
   youtubeId?: string;
   sections?: ProjectSection[];
+  website?: string;
+  logo?: string;
 }
 
 export function ProjectDetail({
@@ -80,6 +82,8 @@ export function ProjectDetail({
   demo,
   youtubeId,
   sections,
+  website,
+  logo,
 }: ProjectDetailProps) {
   useDocumentMeta(title, description);
 
@@ -145,6 +149,17 @@ export function ProjectDetail({
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Live Demo
+                </a>
+              )}
+              {website && (
+                <a
+                  href={website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-5 py-2.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-indigo-500/40 text-slate-300 hover:text-white text-sm font-medium transition-all duration-200"
+                >
+                  <Globe className="w-4 h-4 mr-2" />
+                  Company Website
                 </a>
               )}
             </div>
@@ -331,6 +346,10 @@ export function ProjectDetail({
                 {/* Project info */}
                 <div className="bg-[#0e1527] border border-slate-800 rounded-2xl p-6">
                   <h3 className="text-white font-medium mb-5">Project Info</h3>
+                  {logo && (
+                    // Logos are expected dark-on-transparent; invert for the dark card
+                    <img src={logo} alt="" className="h-8 w-auto mb-5 invert opacity-80" />
+                  )}
                   <div className="flex items-start gap-3">
                     <Tag className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
                     <div>
@@ -356,7 +375,7 @@ export function ProjectDetail({
                 </div>
 
                 {/* Links */}
-                {(github || demo) && (
+                {(github || demo || website) && (
                   <div className="bg-[#0e1527] border border-slate-800 rounded-2xl p-6 space-y-3">
                     <h3 className="text-white font-medium mb-4">Links</h3>
                     {github && (
@@ -379,6 +398,17 @@ export function ProjectDetail({
                       >
                         <ExternalLink className="w-4 h-4" />
                         Live Demo
+                      </a>
+                    )}
+                    {website && (
+                      <a
+                        href={website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-slate-400 hover:text-indigo-400 text-sm transition-colors"
+                      >
+                        <Globe className="w-4 h-4" />
+                        Company Website
                       </a>
                     )}
                   </div>

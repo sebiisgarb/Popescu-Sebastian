@@ -3,14 +3,16 @@ import { useInView } from 'motion/react';
 import { useRef } from 'react';
 import { Trophy, Briefcase, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
+import tomisHoneyLogo from './static/tomis-honey-logo.png';
 
 const work = [
   {
     role: 'Fractional CTO · External Technical Partner',
-    company: 'Tomis Honey',
+    company: "Tomi's Honey",
     companyNote: 'Romanian honey producer',
-    // TODO: replace TODO_START_DATE with the real start date; add company URL/logo
-    period: 'TODO_START_DATE – Present',
+    companyUrl: 'https://tomishoney.ro',
+    logo: tomisHoneyLogo,
+    period: 'September 2026 – Present',
     summary:
       "Leading the company's digital transformation end to end, owning the entire software stack from architecture and infrastructure to day-to-day operation, and advising the owners on where technology can drive growth.",
     highlights: [
@@ -106,14 +108,21 @@ export function Experience() {
               >
                 <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_2px_rgba(99,102,241,0.4)]" />
                 <div className="bg-[#0e1527] border border-slate-800 rounded-xl p-7 hover:border-indigo-500/25 transition-all duration-300">
+                  {/* Logo is dark-on-transparent; invert so it reads on the dark card */}
+                  <img src={w.logo} alt={`${w.company} logo`} className="h-8 w-auto mb-5 invert opacity-80" />
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div className="text-white text-lg font-medium">{w.role}</div>
                     <span className="text-sm text-slate-500">{w.period}</span>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span className="text-sm px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/20 text-indigo-400">
+                    <a
+                      href={w.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/20 text-indigo-400 hover:border-indigo-500/40 hover:text-indigo-300 transition-colors"
+                    >
                       {w.company}
-                    </span>
+                    </a>
                     <span className="text-sm text-slate-600">{w.companyNote}</span>
                   </div>
                   <p className="text-slate-400 leading-relaxed mb-5">{w.summary}</p>

@@ -20,7 +20,7 @@ type Project = {
 const projects: Project[] = [
   {
     id: 'tomis-honey',
-    title: 'Tomis Honey — Digital Transformation',
+    title: "Tomi's Honey — Digital Transformation",
     description: 'Fractional CTO for a Romanian honey producer. Custom Odoo 19 ERP with end-to-end lot traceability, a shop-floor PWA, e-commerce automations and AI agents.',
     // TODO: add screenshot (image)
     tags: ['Odoo 19', 'Python', 'PostgreSQL', 'Docker', 'n8n', 'AI Agents'],
