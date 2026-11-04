@@ -17,6 +17,14 @@ export default defineConfig({
     },
   },
 
+  build: {
+    rollupOptions: {
+      // lucide-react exposes ~1500 icon files; limiting parallel reads avoids
+      // EMFILE ("too many open files") on build hosts with low ulimit (Cloudflare Pages).
+      maxParallelFileOps: 20,
+    },
+  },
+
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })
